@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const downloadGit = require("download-git-repo");
 const download = (templateName, projectName) => __awaiter(void 0, void 0, void 0, function* () {
-    let url = `direct:https://github.com/syqt/${templateName}-template.git`;
+    let url = `direct:https://github.com/xlcli/${templateName}-template.git`;
     return new Promise((resolve, reject) => {
         downloadGit(url, projectName, { clone: true }, (err) => {
             if (err) {

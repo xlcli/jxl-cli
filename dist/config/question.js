@@ -13,7 +13,7 @@ const CliQuestions = [
             },
             {
                 key: 'react-ts',
-                name: 'react typeScript template',
+                name: 'react ts template',
                 value: 'react-ts'
             },
             {
@@ -30,6 +30,11 @@ const CliQuestions = [
                 key: 'react-vite',
                 name: 'react vite template',
                 value: 'react-vite'
+            },
+            {
+                key: 'react-vitets',
+                name: 'react vite ts template',
+                value: 'react-vitet'
             },
             {
                 key: 'egg',

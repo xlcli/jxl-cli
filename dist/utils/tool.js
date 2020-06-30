@@ -52,3 +52,7 @@ const applyCommand = (command, ...args) => {
     require(`../scripts/${command}`)(...args);
 };
 exports.applyCommand = applyCommand;
+function firstUpperCase(str) {
+    return str.replace(/^\S/, s => s.toUpperCase());
+}
+exports.firstUpperCase = firstUpperCase;

@@ -11,7 +11,7 @@ const runCommand = (command: string = '', args: string[] = []): Promise<any> => 
 		const executedCommand = cp.spawn(command, args, {
 			stdio: "inherit",
 			shell: true
-		}); 
+		});
 
 		executedCommand.on("error", error => {
 			reject(error);
@@ -50,7 +50,7 @@ const installPackage = (packageName: string, arg: string = '') => {
 
   runCommand(packageTool, installOptions.concat(packageName))
     .then(() => {
-      require(packageName); 
+      require(packageName);
     })
     .catch(error => {
       console.error(error);
@@ -69,11 +69,15 @@ const clearConsole = () => {
 
 /**
  * 加载命令行脚本
- * @param command 
- * @param args 
+ * @param command
+ * @param args
  */
 const applyCommand = (command, ...args) => {
 	require(`../scripts/${command}`)(...args);
+}
+
+function firstUpperCase(str: string) {
+  return str.replace(/^\S/, s => s.toUpperCase());
 }
 
 export {
@@ -81,5 +85,6 @@ export {
   isInstalled,
 	installPackage,
 	clearConsole,
-  applyCommand
+  applyCommand,
+  firstUpperCase
 }

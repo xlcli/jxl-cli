@@ -13,7 +13,7 @@ const CliQuestions: Question[] = [
       },
       {
         key: 'react-ts',
-        name: 'react typeScript template',
+        name: 'react ts template',
         value: 'react-ts'
       },
       {
