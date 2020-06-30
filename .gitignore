@@ -11,5 +11,4 @@ node_modules/
 examples/test
 .idea/
 .vscode/
-src
 yarn.lock
