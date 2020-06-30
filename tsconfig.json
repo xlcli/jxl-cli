@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "baseUrl": "./",
+    "lib": ["esnext", "es6", "dom","es7"],
+    "module": "commonjs",
+    "sourceMap": false,
+    "removeComments": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true,
+    "declaration": false,
+    "outDir": "dist",
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "./src",
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    ".vscode",
+    "bin"
+  ],
+
+}
