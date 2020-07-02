@@ -22,6 +22,11 @@ const CliQuestions = [
                 value: 'react-lib'
             },
             {
+                key: 'react-libts',
+                name: 'react library ts template',
+                value: 'react-libts'
+            },
+            {
                 key: 'react-ui',
                 name: 'react ui template',
                 value: 'react-ui'
