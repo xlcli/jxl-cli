@@ -12,4 +12,3 @@ examples/test
 .idea/
 .vscode/
 yarn.lock
-dist/

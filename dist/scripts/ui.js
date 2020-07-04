@@ -1,4 +1,9 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const fse = require("fs-extra");
+const package_1 = require("../utils/package");
 const ui = () => {
-    console.log(...process.argv.slice(3));
+    const data = fse.readFileSync(package_1.projectPkgPath).toString();
+    console.log(JSON.parse(data).description);
 };
 module.exports = ui;

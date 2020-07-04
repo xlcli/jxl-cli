@@ -1,66 +1,66 @@
-import * as path from 'path';
-import * as fse from 'fs-extra';
-import * as spawn from 'cross-spawn';
+import * as path from "path"
+import * as fse from "fs-extra"
+import * as spawn from "cross-spawn"
 
-import { logColor } from './log';
-import { projectPkgPath } from './package';
+import { logColor } from "./log"
+import { projectPkgPath } from "./package"
 
 /**
  * 判断是否初始化Git
  * @returns {boolean}
  */
 function isGit() {
-  return fse.existsSync(path.join(projectPkgPath, '.git/HEAD'));
+	return fse.existsSync(path.join(projectPkgPath, ".git/HEAD"))
 }
 
 /**
-* 判断远程master是否推送过
-* @returns {boolean}
-*/
+ * 判断远程master是否推送过
+ * @returns {boolean}
+ */
 function hasRemoteMaster() {
- const ret = spawn.sync('git', ['ls-remote', 'origin', 'refs/heads/master']);
+	const ret = spawn.sync("git", ["ls-remote", "origin", "refs/heads/master"])
 
- if (ret.stdout.toString().indexOf('heads/master') === -1) {
-   return false;
- }
- return true;
+	if (ret.stdout.toString().indexOf("heads/master") === -1) {
+		return false
+	}
+	return true
 }
 
-function commit() {
-  let commitFlag = true;
+function commit(branch: string, commitInfo: string) {
+	let commitFlag = true
 
-  // git 发布流
-  const gitCommands = [
-    'add *',
-    `commit -m "first"`,
-    `push -u origin master`
-  ];
+	// git 发布流
+	const gitCommands = [
+		["add", "."],
+		["commit", "-m", `${commitInfo}`],
+		["push", "-u", "origin", `${branch}`],
+	]
 
-  let spawnRet = {
-    status: -1
-  };
+	let spawnRet = {
+		status: -1,
+	}
 
-  gitCommands.forEach(command => {
-    if (!commitFlag) {
-      return;
-    }
+	logColor("🚀 Start push ...", "blue")
 
-    spawnRet = spawn.sync('git', command.split(' '), {
-      stdio: 'inherit'
-    });
+	gitCommands.forEach((command) => {
+		if (!commitFlag) {
+			return
+		}
 
-    if (spawnRet.status !== 0 && spawnRet.status !== 1 ) {
-      commitFlag = false;
-      logColor(`【git】git ${command} 执行失败`, 'red');
-      return;
-    }
-  });
+		spawnRet = spawn.sync("git", command, {
+			stdio: "inherit",
+		})
 
-  return commitFlag;
+		if (spawnRet.status !== 0 && spawnRet.status !== 1) {
+			commitFlag = false
+			logColor(`【git】git ${command} 执行失败`, "red")
+			return
+		}
+	})
+
+	logColor(`🎉【branch】push ${branch} successfully.\n`, "green")
+
+	return commitFlag
 }
 
-export {
-  isGit,
-  hasRemoteMaster,
-  commit
-}
+export { isGit, hasRemoteMaster, commit }

@@ -4,7 +4,7 @@ const CliQuestions = [
     {
         type: 'list',
         name: 'template',
-        message: 'Please choose the template type:',
+        message: '请选择一种模版:',
         choices: [
             {
                 key: 'react',
@@ -51,20 +51,29 @@ const CliQuestions = [
     {
         type: 'input',
         name: 'description',
-        message: 'Please enter the project description:',
+        message: '请输入项目描述:',
         default: 'cli template'
     },
     {
         type: 'input',
         name: 'author',
-        message: 'Please enter the author name:',
+        message: '请输入项目作者名:',
         default: 'jiangxinlei'
     },
     {
         type: 'confirm',
         name: 'isInstall',
-        message: '是否安装依赖？',
-        suffix: '(默认 Yes)'
+        message: '是否安装？',
+        default: false
     }
 ];
 exports.CliQuestions = CliQuestions;
+const CommitQuestions = [
+    {
+        type: 'input',
+        name: 'commitInfo',
+        message: '请输入提交信息:',
+        default: 'commit info'
+    }
+];
+exports.CommitQuestions = CommitQuestions;

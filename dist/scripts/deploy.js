@@ -23,11 +23,12 @@ const deploy = () => __awaiter(void 0, void 0, void 0, function* () {
         log_1.logSymbol('😭 Please check whether it is the jxl project.', 'error');
         process.exit(1);
     }
-    const { projectName, template, buildPath, script, host, port, username, password, serverPath } = require(`${projectPath}/${fileName}`);
-    if (template !== 'react') {
-        log_1.logSymbol(`😅 The ${template} project is not supported.`, 'info');
-        process.exit(1);
+    const argv = process.argv.slice(3);
+    let serverFile = require(`${projectPath}/${fileName}`);
+    if (argv.length) {
+        serverFile = serverFile[argv[0]];
     }
+    const { projectName, template, buildPath, script, host, port, username, password, serverPath } = serverFile;
     const spinner = ora();
     function execBuild() {
         try {
@@ -141,21 +142,24 @@ const deploy = () => __awaiter(void 0, void 0, void 0, function* () {
             });
         });
     }
-    (() => __awaiter(void 0, void 0, void 0, function* () {
-        try {
-            execBuild();
-            yield startZip();
-            yield connectSSH();
-            yield uploadFile();
-            yield unzipFile();
-            yield deleteLocalZip();
-            log_1.logSymbol(`🎉 ${projectName} 项目部署成功！`, 'success');
-            process.exit(0);
-        }
-        catch (err) {
-            log_1.logSymbol(`💔 项目部署失败！${err}`, 'error');
-            process.exit(1);
-        }
-    }))();
+    function startExec() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                execBuild();
+                yield startZip();
+                yield connectSSH();
+                yield uploadFile();
+                yield unzipFile();
+                yield deleteLocalZip();
+                log_1.logSymbol(`🎉 ${projectName} 项目部署成功！`, 'success');
+                process.exit(0);
+            }
+            catch (err) {
+                log_1.logSymbol(`💔 项目部署失败！${err}`, 'error');
+                process.exit(1);
+            }
+        });
+    }
+    startExec();
 });
 module.exports = deploy;

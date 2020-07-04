@@ -17,8 +17,8 @@ exports.default = {
         description: 'deploy project',
         usage: 'jxl deploy'
     },
-    ui: {
-        description: 'deploy project',
-        usage: 'jxl deploy'
+    push: {
+        description: 'push master',
+        usage: 'jxl push'
     },
 };

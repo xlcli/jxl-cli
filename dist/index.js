@@ -43,7 +43,6 @@ function run() {
             switch (command) {
                 case 'create':
                 case 'deploy':
-                case 'ui':
                     tool_1.applyCommand(command, ...process.argv.slice(3));
                     break;
                 default:
