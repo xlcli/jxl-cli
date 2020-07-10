@@ -5,3 +5,5 @@ LICENSE
 .vscode
 yarn.lock
 bin
+package.json
+tsconfig.json

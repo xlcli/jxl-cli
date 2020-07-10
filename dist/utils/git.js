@@ -22,18 +22,18 @@ function commit(branch, commitInfo) {
     const gitCommands = [
         ['add', '.'],
         ['commit', '-m', `${commitInfo}`],
-        ['push', '-u', 'origin', `${branch}`]
+        ['push', '-u', 'origin', `${branch}`],
     ];
     let spawnRet = {
-        status: -1
+        status: -1,
     };
-    log_1.logColor('🚀 Start push ...', 'blue');
-    gitCommands.forEach(command => {
+    log_1.logColor('🚀 Start pushing ...', 'blue');
+    gitCommands.forEach((command) => {
         if (!commitFlag) {
             return;
         }
         spawnRet = spawn.sync('git', command, {
-            stdio: 'inherit'
+            stdio: 'inherit',
         });
         if (spawnRet.status !== 0 && spawnRet.status !== 1) {
             commitFlag = false;
@@ -45,3 +45,10 @@ function commit(branch, commitInfo) {
     return commitFlag;
 }
 exports.commit = commit;
+function getBranch() {
+    return spawn
+        .sync('git', ['rev-parse', '--abbrev-ref', 'HEAD'])
+        .stdout.toString()
+        .replace(/\s+/, '');
+}
+exports.getBranch = getBranch;

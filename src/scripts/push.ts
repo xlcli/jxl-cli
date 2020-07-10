@@ -1,19 +1,15 @@
-import * as spawn from "cross-spawn"
-import { prompt } from "inquirer"
+import { prompt } from 'inquirer'
 
-import { CommitQuestions } from "../config/question"
-import { commit } from "../utils/git"
+import { CommitQuestions } from '../config/question'
+import { commit, getBranch } from '../utils/git'
 
 async function push() {
 	const { commitInfo } = await prompt(CommitQuestions)
 
-	const branch = spawn
-		.sync("git", ["rev-parse", "--abbrev-ref", "HEAD"])
-		.stdout.toString()
-		.replace(/\s+/, "")
+	const branch = getBranch()
 
-	if (branch === "HEAD") {
-		commit("master", commitInfo)
+	if (branch === 'HEAD') {
+		commit('master', commitInfo)
 	} else {
 		commit(branch, commitInfo)
 	}

@@ -18,21 +18,21 @@ const log_1 = require("../utils/log");
 const tool_1 = require("../utils/tool");
 const create = (projectName, key, value) => __awaiter(void 0, void 0, void 0, function* () {
     if (!projectName) {
-        console.log('Please specify the project directory:');
-        log_1.logColor(' jxl create', 'blue', ' <project-directory>', 'green');
-        console.log('\n');
-        console.log('For example:');
-        log_1.logColor(' jxl create', 'blue', ' my-app', 'green');
+        console.log("Please specify the project directory:");
+        log_1.logColor(" jxl create", "blue", " <project-directory>", "green");
+        console.log("\n");
+        console.log("For example:");
+        log_1.logColor(" jxl create", "blue", " my-app", "green");
         process.exit(1);
     }
     else if (fse.existsSync(projectName)) {
-        log_1.logSymbol('😅 The project already exists.', 'error');
+        log_1.logSymbol("😅 The project already exists.", "error");
         process.exit(1);
     }
     else {
         const { template, description, author, isInstall } = yield inquirer_1.prompt(question_1.CliQuestions);
         const spinner = ora();
-        spinner.start('🚀 Start downloading template code ...');
+        spinner.start("🚀 Start downloading template code ...");
         download_1.download(template, projectName)
             .then(() => {
             const fileName = `${projectName}/package.json`;
@@ -42,8 +42,8 @@ const create = (projectName, key, value) => __awaiter(void 0, void 0, void 0, fu
                 json.name = projectName;
                 json.description = description;
                 json.author = author;
-                fse.writeFileSync(fileName, JSON.stringify(json, null, '\t'), 'utf-8');
-                spinner.succeed('🎉 Download successfully.\n');
+                fse.writeFileSync(fileName, JSON.stringify(json, null, "\t"), "utf-8");
+                spinner.succeed("🎉 Download successfully.\n");
                 spinner.stop();
             }
             install();
@@ -51,28 +51,28 @@ const create = (projectName, key, value) => __awaiter(void 0, void 0, void 0, fu
                 return __awaiter(this, void 0, void 0, function* () {
                     if (isInstall) {
                         try {
-                            log_1.logColor('🚀 Start installing dependencies', 'blue');
+                            log_1.logColor("🚀 Start installing dependencies", "blue");
                             yield tool_1.runCommand(`cd ${projectName} && yarn`);
-                            log_1.logSymbol(`🎉 Installation successfully.\n`, 'success');
-                            log_1.logColor('[INFO] Coding now...\r\n', 'blue');
-                            log_1.logColor('         cd', 'blue', `${projectName}\r\n`, 'green');
-                            log_1.logColor(`         yarn`, 'blue', 'start\r\n', 'green');
+                            log_1.logSymbol(`🎉 Installation successfully.\n`, "success");
+                            log_1.logColor("[INFO] Coding now...\r\n", "blue");
+                            log_1.logColor("         cd", "blue", `${projectName}\r\n`, "green");
+                            log_1.logColor(`         yarn`, "blue", "start\r\n", "green");
                         }
                         catch (err) {
-                            log_1.logSymbol(`❌ Installation failed. ${err}`, 'error');
+                            log_1.logSymbol(`❌ Installation failed. ${err}`, "error");
                             process.exit(1);
                         }
                     }
                     else {
-                        log_1.logColor('[INFO] Coding now...\r\n', 'blue');
-                        log_1.logColor('        cd', 'blue', `${projectName}\r\n`, 'green');
-                        log_1.logColor(`        yarn\r\n`, 'blue');
-                        log_1.logColor(`        yarn`, 'blue', 'start\r\n', 'green');
+                        log_1.logColor("[INFO] Coding now...\r\n", "blue");
+                        log_1.logColor("        cd", "blue", `${projectName}\r\n`, "green");
+                        log_1.logColor(`        yarn\r\n`, "blue");
+                        log_1.logColor(`        yarn`, "blue", "start\r\n", "green");
                     }
                 });
             }
         })
-            .catch(err => {
+            .catch((err) => {
             spinner.fail(`❌ The project created fail. ${err}`);
         });
     }

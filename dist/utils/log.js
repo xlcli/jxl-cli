@@ -19,7 +19,7 @@ const logSymbol = (str, symbolType) => {
         info: chalk.blue(str),
         success: chalk.green(str),
         warning: chalk.yellow(str),
-        error: chalk.red(str)
+        error: chalk.red(str),
     };
     log(symbol[symbolType], map[symbolType]);
 };

@@ -9,19 +9,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const inquirer_1 = require("inquirer");
-const question_1 = require("../config/question");
+const spawn = require("cross-spawn");
 const git_1 = require("../utils/git");
-function push() {
+const log_1 = require("../utils/log");
+function merge() {
     return __awaiter(this, void 0, void 0, function* () {
-        const { commitInfo } = yield inquirer_1.prompt(question_1.CommitQuestions);
         const branch = git_1.getBranch();
-        if (branch === 'HEAD') {
-            git_1.commit('master', commitInfo);
-        }
-        else {
-            git_1.commit(branch, commitInfo);
-        }
+        const gitCommands = [
+            ["checkout", "master"],
+            ["merge", `${branch}`],
+            ["push", "-u", "origin", 'master'],
+        ];
+        let spawnRet = {
+            status: -1,
+        };
+        log_1.logColor("🚀 Start merging ...", "blue");
+        gitCommands.forEach((command) => {
+            spawnRet = spawn.sync("git", command, {
+                stdio: "inherit",
+            });
+            if (spawnRet.status !== 0 && spawnRet.status !== 1) {
+                log_1.logColor(`【git】git ${command} 执行失败`, "red");
+                return;
+            }
+        });
+        log_1.logColor(`🎉【branch】merge ${branch} successfully.\n`, "green");
     });
 }
-push();
+merge();
